@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#region UITLEG SCRIPT
+/* toevoegen of verwijderen van levens
+ * check wanneer er geen levens meer over zijn > laat gamover screen zien */
+#endregion
+
 public class LifeManager : MonoBehaviour
 {
+
     protected static int lifeCounter;
     public int startingLives;
-    protected Text text;
+   // protected Text text;
 
     public PlayerController player;
     public GameObject gameOverScreen;
+
    // public string levelToLoadAfterDead;
     public float waitAfterGameOver;
 
@@ -37,7 +44,7 @@ public class LifeManager : MonoBehaviour
         spawnCarsScript = FindObjectOfType<SpawnCars>();
         lifeCounter = PlayerPrefs.GetInt("PlayerCurrentLives");        
         lifeCounter = startingLives;
-        text = GetComponent<Text>();
+        //text = GetComponent<Text>();
         player = FindObjectOfType<PlayerController>();
         //coins = GetComponent<GameObject>.tag
 
@@ -50,11 +57,12 @@ public class LifeManager : MonoBehaviour
         if (lifeCounter <= 0)
         {
             gameOverScreen.SetActive(true);
+            Time.timeScale = 0f;
             Reset();
             //Debug.Log("DEEEEAAAD + lives " + lifeCounter);
         }
 
-        text.text = "lives: x " + lifeCounter;
+       // text.text = "lives: x " + lifeCounter;
     }
 
     public void GiveLife()
@@ -66,8 +74,9 @@ public class LifeManager : MonoBehaviour
     public static void TakeLife()
     {
         lifeCounter--;
-        PlayerPrefs.SetInt("PlayerCurrentLives", lifeCounter);
+        PlayerPrefs.SetInt("PlayerCurrentLives", lifeCounter);        
     }
+    
 
     public static void ResetLife()
     {
@@ -84,7 +93,7 @@ public class LifeManager : MonoBehaviour
 
         player.runSpeed = 7f;
         player.animationWalkSpeed = 1f;
-        spawnCarsScript.RespawnCars();
+        //spawnCarsScript.RespawnCars();
 
         cloudList = FindObjectsOfType<CloudDestroyer>();
         for (int i = 0; i < cloudList.Length; i++)

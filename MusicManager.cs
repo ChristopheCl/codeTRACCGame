@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#region UITLEG SCRIPT
+/* deze script zorgt ervoor het juiste audio af te spelen bij een scene */
+#endregion
+
 public class MusicManager : MonoBehaviour
 {
     public AudioClip mainTheme;

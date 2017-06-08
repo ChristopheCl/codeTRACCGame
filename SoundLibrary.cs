@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region UITLEG SCRIPT
+/* een library met alle geluiden die je in de game wilt hebben
+ * deze kan je dan "opvragen" en afspelen in een andere script door gebruik te maken van deze script + audiomanager */
+#endregion
+
 public class SoundLibrary : MonoBehaviour
 {
     public SoundGroup[] soundGroups;

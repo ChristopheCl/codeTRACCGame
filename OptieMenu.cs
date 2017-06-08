@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#region UITLEG SCRIPT
+/* er zijn sliders in de optie menu deze kan je bewegen om de audio zachter/harder te zetten 
+ * waarden worden doorgegeven aan sliders */
+#endregion
+
 public class OptieMenu : MonoBehaviour
 {
     public Slider[] volumeSliders;

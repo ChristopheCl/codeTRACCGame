@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region UITLEG SCRIPT
+/* volgt de player */
+#endregion
+
 public class CameraFollow : MonoBehaviour
 {
     public GameObject player;
@@ -11,9 +15,7 @@ public class CameraFollow : MonoBehaviour
     private float cameraZ;
     public float deltaY;
 
-    public bool isFollowing;
-
-    
+    public bool isFollowing;    
     
 	void Start ()
     {

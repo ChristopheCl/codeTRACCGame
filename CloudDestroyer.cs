@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region UITLEG SCRIPT
+/* zet wolk inactief wanneer deze niet meet in beeld is in de game*/
+#endregion
+
 public class CloudDestroyer : MonoBehaviour
 {
     public GameObject cloudDestructionPoint;

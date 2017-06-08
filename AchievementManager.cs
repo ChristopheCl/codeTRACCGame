@@ -3,32 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#region UITLEG SCRIPT
+/* het maken van een achievement (in dictionary)
+ * deze weergeven in het spel wanneer genoeg punten verzameld 
+ * en melding weergeven waneer men deze gewonnen heeft*/
+#endregion
+
 public class AchievementManager : MonoBehaviour
 {
     public GameObject[] visualAchievement;
     public Dictionary<string, Achievement> achievements = new Dictionary<string, Achievement>();
+    public GameObject[] buildingsLocked;
+    public GameObject[] buildingsUnlocked;
 
-    string building = "";
-
-    public string Building
+    private void Awake()
     {
-        get { return building; }
-
-        set { building = value; }
+        CreateAchievement("BraboAchievement");
+        CreateAchievement("MASAchievement");
+        CreateAchievement("KMSKAAchievement");
+        CreateAchievement("Gate15Achievement");
     }
 
-    void Start ()
-    {
-        CreateAchievement("Brabo");
-        CreateAchievement("MAS");
-        CreateAchievement("KMSKA");
-        CreateAchievement("Gate15");
-        //Debug.Log("BRABO = " + PlayerPrefs.GetInt("BraboCoins")  + " KMSKA = " + PlayerPrefs.GetInt("KMSKACoints") + "\nMAS = " + PlayerPrefs.GetInt("MASCoins") + " GATE15 = " + PlayerPrefs.GetInt("Gate15Coins"));
+    //void Start()
+    //{
+    //    CreateAchievement("MarktAchievement");
+    //    CreateAchievement("MASAchievement");
+    //    CreateAchievement("KMSKAAchievement");
+    //    CreateAchievement("Gate15Achievement");
 
-        PlayerPrefs.GetString("Building");
-    }
+    //    // PlayerPrefs.GetString("Building");
+    //}
 
-    void Update()
+    private void FixedUpdate()
     {
         BuildingWinCheck();
     }
@@ -41,8 +47,8 @@ public class AchievementManager : MonoBehaviour
 
     public void SetAchievementInfo(string categorie, GameObject achievement)
     {
-            achievement.transform.SetParent(GameObject.Find(categorie).transform);
-            achievement.transform.localScale = new Vector3(2, 2, 1);        
+        achievement.transform.SetParent(GameObject.Find(categorie).transform);
+        achievement.transform.localScale = new Vector3(2.5f, 2.5f, 1);
     }
 
     public void EarnAchievement(string title)
@@ -51,25 +57,17 @@ public class AchievementManager : MonoBehaviour
         {
             switch (title)
             {
-                case "Brabo":
-                    AchievementInstantiate(0);
-                    //building = "brabo";
-                    PlayerPrefs.SetString("Building", "brabo");
-                    break;
-                case "MAS":
+                case "MASAchievement":
                     AchievementInstantiate(1);
-                    //building = "mas";
-                    PlayerPrefs.SetString("Building", "mas");
                     break;
-                case "KMSKA":
+                case "KMSKAAchievement":
                     AchievementInstantiate(2);
-                    //building = "kmska";
-                    PlayerPrefs.SetString("Building", "kmska");
                     break;
-                case "Gate15":
+                case "Gate15Achievement":
                     AchievementInstantiate(3);
-                    //building = "gate15";
-                    PlayerPrefs.SetString("Building", "gate15");
+                    break;
+                case "BraboAchievement":
+                    AchievementInstantiate(0);
                     break;
             }
         }
@@ -80,6 +78,7 @@ public class AchievementManager : MonoBehaviour
         GameObject achievement = (GameObject)Instantiate(visualAchievement[spriteNumber]);
         SetAchievementInfo("EarnCanvas", achievement);
         StartCoroutine(HideAchievement(achievement));
+        Debug.Log("ACHIEVEMENT BORN!!!!" + achievement);
     }
 
     public IEnumerator HideAchievement(GameObject achievement)
@@ -92,29 +91,28 @@ public class AchievementManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("BraboScore") >= 5)
         {
-            EarnAchievement("Brabo");
-            //building = "brabo";
-            PlayerPrefs.SetString("Building", "brabo");
+            EarnAchievement("BraboAchievement");
+            buildingsLocked[0].SetActive(false);
+            buildingsUnlocked[0].SetActive(true);
         }
         else if (PlayerPrefs.GetInt("KMSKAScore") >= 5)
         {
-            EarnAchievement("KMSKA");
-            //building = "kmska";
-            PlayerPrefs.SetString("Building", "kmska");
+            EarnAchievement("KMSKAAchievement");
+            buildingsLocked[1].SetActive(false);
+            buildingsUnlocked[1].SetActive(true);
         }
         else if (PlayerPrefs.GetInt("MASScore") >= 5)
         {
-            EarnAchievement("MAS");
-            //building = "mas";
-            PlayerPrefs.SetString("Building", "mas");
+            EarnAchievement("MASAchievement");
+            buildingsLocked[2].SetActive(false);
+            buildingsUnlocked[2].SetActive(true);
         }
         else if (PlayerPrefs.GetInt("Gate15Score") >= 5)
         {
-            EarnAchievement("Gate15");
-            //building = "gate15";
-            PlayerPrefs.SetString("Building", "gate15");
+            EarnAchievement("Gate15Achievement");
+            buildingsLocked[3].SetActive(false);
+            buildingsUnlocked[3].SetActive(true);
         }
-        //return building;
     }
 
 }

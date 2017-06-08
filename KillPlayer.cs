@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region UITLEG SCRIPT
+/* respawned player naar begin van het spel */
+#endregion
+
 public class KillPlayer : MonoBehaviour
 {
     private LevelManager levelManager;
@@ -16,6 +20,7 @@ public class KillPlayer : MonoBehaviour
         if(other.name == "Pigeon")
         {
             levelManager.RespawnPlayer();
+            AudioManager.instance.PlaySound("Crash", transform.position);
         }
     }
 }

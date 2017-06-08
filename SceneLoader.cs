@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#region UITLEG SCRIPT
+/* laadscherm voordat men spel kan spelen*/
+#endregion
+
 public class SceneLoader : MonoBehaviour
 {
     private bool loadScene = false;
@@ -31,6 +35,8 @@ public class SceneLoader : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         AsyncOperation async = Application.LoadLevelAsync(scene);
+        ScoreManager.ResetScore();
+        PlayerPrefs.DeleteKey("Building");
 
         while (!async.isDone)
         {

@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region UITLEG SCRIPT
+/* er worden wolken gegeneert op random hoogte en diepte
+ * er wordt gebruik gemaakt van empty gameobject in de game > daar worden wolken gespawned */
+#endregion
+
 public class CloudGenerator : MonoBehaviour
 {
     //public GameObject[] theClouds;

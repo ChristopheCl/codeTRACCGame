@@ -3,37 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#region UITLEG SCRIPT
+/* houd punten bij
+ * voegt punt toe wanneer men een bepaalde coin verzameld (verschillende coins voor elk gebouw) */
+#endregion
+
 public class ScoreManager : MonoBehaviour
 {
     public static int braboScore;
     public static int masScore;
     public static int kmskaScore;
     public static int gate15Score;
-    public static Text scoreText;
+   //public static Text scoreText;
+    public Image[] imgScore;
+    public Sprite[] spriteScore;
 
-    void Start ()
+    void Start()
     {
-        //score = PlayerPrefs.GetInt("CurrentPlayerScore");
         braboScore = PlayerPrefs.GetInt("BraboScore");
         masScore = PlayerPrefs.GetInt("MASScore");
         kmskaScore = PlayerPrefs.GetInt("KMSKAScore");
         gate15Score = PlayerPrefs.GetInt("Gate15Score");
-        scoreText = GetComponent<Text>();
-        //score = 0;      
+       // scoreText = GetComponent<Text>();
+
         PlayerPrefs.SetInt("BraboScore", 0);
         PlayerPrefs.SetInt("MASScore", 0);
         PlayerPrefs.SetInt("KMSKAScore", 0);
         PlayerPrefs.SetInt("Gate15Score", 0);
         ResetScore();
-	}
+    }
 
-	void Update ()
+    void Update()
     {
         changeScore();
+        checkScore();
         //Debug.Log("UPDATE " + score + "UPDATE TEXT " + scoreText.text);
     }
 
-    public static void changeScore() //NOG VERANDEREN
+    public void checkScore()
+    {
+        if (braboScore >= 5)
+        {
+            imgScore[0].sprite = spriteScore[0];
+        }
+        if (gate15Score >= 5)
+        {
+            imgScore[3].sprite = spriteScore[3];
+        }
+        if (masScore >= 5)
+        {
+            imgScore[1].sprite = spriteScore[1];
+        }
+        if (kmskaScore >= 5)
+        {
+            imgScore[2].sprite = spriteScore[2];
+        }
+    }
+
+    public static void changeScore()
     {
         if (braboScore < 0 || masScore < 0 || kmskaScore < 0 || gate15Score < 0)
         {
@@ -42,16 +69,13 @@ public class ScoreManager : MonoBehaviour
             kmskaScore = 0;
             gate15Score = 0;
         }
-
-        scoreText.text = "score: " + gate15Score; //ALLE SOORTEN SCORE TOEVOEGEN! sprite laten zien alles verzameld?
-        //Debug.Log("SCORE CHANGED! + SCORE: " + score);
     }
 
     public static void AddPoints(int pointsToAdd, string soortCoin)
     {
         switch (soortCoin)
         {
-            case "braboCoin":
+            case "BraboCoin":
                 braboScore += pointsToAdd;
                 PlayerPrefs.SetInt("BraboScore", braboScore);
                 break;
@@ -67,20 +91,28 @@ public class ScoreManager : MonoBehaviour
                 gate15Score += pointsToAdd;
                 PlayerPrefs.SetInt("Gate15Score", gate15Score);
                 break;
-        }        
+        }
     }
 
     public static void ResetScore()
     {
-        //score = 0;
         braboScore = 0;
         masScore = 0;
         kmskaScore = 0;
         gate15Score = 0;
-        //PlayerPrefs.SetInt("CurrentPlayerScore", score);
+
         PlayerPrefs.SetInt("BraboScore", braboScore);
         PlayerPrefs.SetInt("MASScore", masScore);
         PlayerPrefs.SetInt("KMSKAScore", kmskaScore);
         PlayerPrefs.SetInt("Gate15Score", gate15Score);
+
+       // PlayerPrefs.DeleteKey("Building");
+
+        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
+
+        for (int i = 0; i < coins.Length; i++)
+        {
+            coins[i].SetActive(true);
+        }
     }
 }

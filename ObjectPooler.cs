@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region UITLEG SCRIPT
+/* voegt wolken toe aan een lijst die uiteindelijk worden gespawned
+ * worden inactief gezet wanneer buiten scherm
+ * worden terug actief gezet wanneer nodig */
+#endregion
+
 public class ObjectPooler : MonoBehaviour
 {
     public GameObject pooledObject;
